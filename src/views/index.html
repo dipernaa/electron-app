@@ -3,16 +3,34 @@
   <head>
     <meta charset="UTF-8">
     <title>Hello World!</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background-color: #40415a;
+      }
+
+      #webview {
+        height: 100vh;
+        position: fixed;
+        width: 100%;
+      }
+
+      ::-webkit-scrollbar {
+        display: none!important;
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using node <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
-  </body>
+    <webview id='webview' src='https://www.twitch.tv/'></webview>
 
-  <script>
-    require('./../scripts/renderer.js');
-  </script>
+    <script>
+        const webview = document.getElementById('webview');
+
+        // Webview links that try to open in new window will open in default browser
+        webview.addEventListener('new-window', function(event) {
+            require('electron').shell.openExternal(event.url);
+        });
+    </script>
+  </body>
 </html>

@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron');
+const {app, globalShortcut, BrowserWindow} = require('electron');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -20,6 +20,15 @@ function createWindow() {
     // in an array if your app supports multi windows, this is the time
     // when you should delete the corresponding element.
     win = null
+  });
+
+  globalShortcut.register('Control+R', () => {
+    mainWindow.webContents.reload();
+  });
+
+  globalShortcut.register('CmdOrCtrl+Left', () => {
+    mainWindow.webContents.goBack();
+    mainWindow.webContents.reload();
   });
 }
 
